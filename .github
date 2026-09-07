@@ -1,4 +1,5 @@
-name: Deploy DRE2learn
+:root {
+  /* DRE2learn web */
 
 on:
   push:
