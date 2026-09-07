@@ -236,7 +236,366 @@ function renderLogin() {
     ?.addEventListener("click", renderAuthChoice);
 }
 
-function handleLogin(event: Event) {
+function handleSignup(event: Event) {
+  event.preventDefault();
+
+  const password = (
+    document.querySelector("#password") as HTMLInputElement
+  ).value;
+
+  const confirmPassword = (
+    document.querySelector("#confirm-password") as HTMLInputElement
+  ).value;
+
+  const error = document.querySelector("#signup-error");
+
+  if (password !== confirmPassword) {
+    if (error) {
+      error.textContent = "Passwords do not match.";
+    }
+
+    return;
+  }
+
+  renderAvatar();
+}
+function renderAvatar() {
+  let skin = "#F6C7A8";
+  let eye = "#5B3828";
+  let hair = "#3A241B";
+  let top = "#F6A27A";
+  let character = "girl";
+
+  const avatarPreview = () => {
+    const hairStyle =
+      character === "girl"
+        ? `
+          <path
+            d="M82 112
+               C72 58 105 25 160 25
+               C215 25 248 62 238 116
+               C226 91 207 78 160 78
+               C113 78 94 92 82 112Z"
+            fill="${hair}"
+          />
+          <path
+            d="M88 91 C65 125 78 181 96 194"
+            fill="none"
+            stroke="${hair}"
+            stroke-width="18"
+            stroke-linecap="round"
+          />
+          <path
+            d="M232 91 C255 125 242 181 224 194"
+            fill="none"
+            stroke="${hair}"
+            stroke-width="18"
+            stroke-linecap="round"
+          />
+        `
+        : `
+          <path
+            d="M80 105
+               C70 55 110 25 160 25
+               C212 25 246 59 238 108
+               C218 82 196 75 165 76
+               C128 78 105 91 80 105Z"
+            fill="${hair}"
+          />
+        `;
+
+    return `
+      <svg
+        viewBox="0 0 320 360"
+        class="avatar-svg"
+        aria-label="Avatar preview"
+      >
+        <!-- Top -->
+        <path
+          d="M55 360
+             C58 294 85 270 112 258
+             L208 258
+             C235 270 262 294 265 360Z"
+          fill="${top}"
+        />
+
+        <!-- Neck -->
+        <path
+          d="M137 245 L137 275 Q160 292 183 275 L183 245Z"
+          fill="${skin}"
+        />
+
+        <!-- Face -->
+        <path
+          d="M92 125
+             Q92 73 160 73
+             Q228 73 228 125
+             L222 202
+             Q215 253 160 265
+             Q105 253 98 202Z"
+          fill="${skin}"
+        />
+
+        <!-- Hair -->
+        ${hairStyle}
+
+        <!-- Eyes -->
+        <ellipse
+          cx="128"
+          cy="155"
+          rx="13"
+          ry="17"
+          fill="white"
+        />
+        <ellipse
+          cx="192"
+          cy="155"
+          rx="13"
+          ry="17"
+          fill="white"
+        />
+
+        <ellipse
+          cx="128"
+          cy="157"
+          rx="7"
+          ry="10"
+          fill="${eye}"
+        />
+        <ellipse
+          cx="192"
+          cy="157"
+          rx="7"
+          ry="10"
+          fill="${eye}"
+        />
+
+        <circle cx="130" cy="153" r="2.5" fill="white" />
+        <circle cx="194" cy="153" r="2.5" fill="white" />
+
+        <!-- Nose -->
+        <path
+          d="M160 162 Q154 185 160 188"
+          fill="none"
+          stroke="#C98F73"
+          stroke-width="3"
+          stroke-linecap="round"
+        />
+
+        <!-- Smile -->
+        <path
+          d="M145 207 Q160 218 175 207"
+          fill="none"
+          stroke="#9E5D55"
+          stroke-width="4"
+          stroke-linecap="round"
+        />
+      </svg>
+    `;
+  };
+
+  const updateAvatar = () => {
+    const preview = document.querySelector("#avatar-preview");
+
+    if (preview) {
+      preview.innerHTML = avatarPreview();
+    }
+  };
+
+  app.innerHTML = `
+    <main class="avatar-page">
+
+      <section class="avatar-card">
+
+        <button class="avatar-back" id="avatar-back">
+          ← Back
+        </button>
+
+        <div class="avatar-title">
+          <span>✨</span>
+          <h1>Create your avatar</h1>
+          <p>Make it yours.</p>
+        </div>
+
+        <div class="avatar-preview" id="avatar-preview">
+          ${avatarPreview()}
+        </div>
+
+        <div class="character-choice">
+          <button
+            class="character-button selected"
+            data-character="girl"
+          >
+            Girl
+          </button>
+
+          <button
+            class="character-button"
+            data-character="boy"
+          >
+            Boy
+          </button>
+        </div>
+
+        <div class="avatar-option">
+          <h2>Skin</h2>
+
+          <div class="option-row">
+            <button class="color-option selected" data-type="skin" data-value="#F6C7A8" style="background:#F6C7A8"></button>
+            <button class="color-option" data-type="skin" data-value="#E8AD87" style="background:#E8AD87"></button>
+            <button class="color-option" data-type="skin" data-value="#D8956D" style="background:#D8956D"></button>
+            <button class="color-option" data-type="skin" data-value="#B97855" style="background:#B97855"></button>
+            <button class="color-option" data-type="skin" data-value="#8D583F" style="background:#8D583F"></button>
+            <button class="color-option" data-type="skin" data-value="#633C2D" style="background:#633C2D"></button>
+          </div>
+        </div>
+
+        <div class="avatar-option">
+          <h2>Eyes</h2>
+
+          <div class="option-row">
+            <button class="eye-option selected" data-type="eye" data-value="#5B3828">
+              🤎
+            </button>
+
+            <button class="eye-option" data-type="eye" data-value="#477EA8">
+              💙
+            </button>
+
+            <button class="eye-option" data-type="eye" data-value="#4D7651">
+              💚
+            </button>
+
+            <button class="eye-option" data-type="eye" data-value="#66518D">
+              💜
+            </button>
+          </div>
+        </div>
+
+        <div class="avatar-option">
+          <h2>Hair</h2>
+
+          <div class="hair-grid">
+            <button class="hair-option selected" data-value="#3A241B">
+              🧑🏻‍🦱
+            </button>
+
+            <button class="hair-option" data-value="#6B422B">
+              🧑🏼‍🦰
+            </button>
+
+            <button class="hair-option" data-value="#B97942">
+              👱🏻
+            </button>
+
+            <button class="hair-option" data-value="#8B3F2F">
+              🧑🏻‍🦰
+            </button>
+
+            <button class="hair-option" data-value="#191919">
+              🖤
+            </button>
+          </div>
+        </div>
+
+        <div class="avatar-option">
+          <h2>Top</h2>
+
+          <div class="option-row">
+            <button class="top-option selected" data-value="#F6A27A" style="background:#F6A27A"></button>
+            <button class="top-option" data-value="#7898C2" style="background:#7898C2"></button>
+            <button class="top-option" data-value="#8BA477" style="background:#8BA477"></button>
+            <button class="top-option" data-value="#A58BC4" style="background:#A58BC4"></button>
+            <button class="top-option" data-value="#303033" style="background:#303033"></button>
+          </div>
+        </div>
+
+        <button class="avatar-continue" id="avatar-continue">
+          Continue
+        </button>
+
+      </section>
+    </main>
+  `;
+
+  document.querySelectorAll(".character-button").forEach((button) => {
+    button.addEventListener("click", () => {
+      character = (button as HTMLElement).dataset.character || "girl";
+
+      document
+        .querySelectorAll(".character-button")
+        .forEach((item) => item.classList.remove("selected"));
+
+      button.classList.add("selected");
+
+      updateAvatar();
+    });
+  });
+
+  document.querySelectorAll(".color-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      skin = (button as HTMLElement).dataset.value || skin;
+
+      document
+        .querySelectorAll('[data-type="skin"]')
+        .forEach((item) => item.classList.remove("selected"));
+
+      button.classList.add("selected");
+
+      updateAvatar();
+    });
+  });
+
+  document.querySelectorAll(".eye-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      eye = (button as HTMLElement).dataset.value || eye;
+
+      document
+        .querySelectorAll(".eye-option")
+        .forEach((item) => item.classList.remove("selected"));
+
+      button.classList.add("selected");
+
+      updateAvatar();
+    });
+  });
+
+  document.querySelectorAll(".hair-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      hair = (button as HTMLElement).dataset.value || hair;
+
+      document
+        .querySelectorAll(".hair-option")
+        .forEach((item) => item.classList.remove("selected"));
+
+      button.classList.add("selected");
+
+      updateAvatar();
+    });
+  });
+
+  document.querySelectorAll(".top-option").forEach((button) => {
+    button.addEventListener("click", () => {
+      top = (button as HTMLElement).dataset.value || top;
+
+      document
+        .querySelectorAll(".top-option")
+        .forEach((item) => item.classList.remove("selected"));
+
+      button.classList.add("selected");
+
+      updateAvatar();
+    });
+  });
+
+  document
+    .querySelector("#avatar-back")
+    ?.addEventListener("click", renderSignup);
+
+  document
+    .querySelector("#avatar-continue")
+    ?.addEventListener("click", renderHome);
+}
   event.preventDefault();
   renderHome();
 }
