@@ -24,6 +24,8 @@ button {
   cursor: pointer;
 }
 
+/* Welcome */
+
 .welcome {
   min-height: 100vh;
   display: flex;
@@ -31,6 +33,7 @@ button {
   align-items: center;
   justify-content: center;
   padding: 24px;
+
   background:
     radial-gradient(
       circle at top right,
@@ -49,11 +52,15 @@ button {
   width: 86px;
   height: 86px;
   margin: 0 auto 20px;
+
   display: grid;
   place-items: center;
+
   border-radius: 26px;
   background: linear-gradient(135deg, #f6a27a, #f8c4a8);
+
   font-size: 42px;
+
   box-shadow: 0 12px 30px rgba(80, 50, 40, 0.12);
 }
 
@@ -72,20 +79,144 @@ button {
 .start-button {
   min-width: 190px;
   padding: 15px 28px;
+
   border-radius: 16px;
+
   background: #f19a72;
   color: white;
+
   font-weight: 700;
+
   box-shadow: 0 8px 20px rgba(241, 154, 114, 0.28);
-  transition: transform 0.2s ease;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.start-button:hover {
+  box-shadow: 0 10px 25px rgba(241, 154, 114, 0.35);
 }
 
 .start-button:active {
   transform: scale(0.97);
 }
 
+/* Authentication */
+
+.auth-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(246, 162, 122, 0.35),
+      transparent 35%
+    ),
+    #fffaf7;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+
+  padding: 40px 28px;
+
+  text-align: center;
+
+  background: white;
+  border: 1px solid #f4e5de;
+  border-radius: 28px;
+
+  box-shadow: 0 20px 60px rgba(80, 50, 40, 0.1);
+}
+
+.auth-card .brand-mark {
+  width: 72px;
+  height: 72px;
+
+  margin-bottom: 24px;
+
+  border-radius: 22px;
+  font-size: 34px;
+}
+
+.auth-card h1 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.auth-card p {
+  margin-top: 10px;
+
+  color: #806f68;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+.primary-button,
+.secondary-button {
+  width: 100%;
+  padding: 14px 20px;
+
+  border-radius: 15px;
+
+  font-weight: 700;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary-button {
+  background: #f19a72;
+  color: white;
+
+  box-shadow: 0 8px 20px rgba(241, 154, 114, 0.25);
+}
+
+.secondary-button {
+  background: #fff3ed;
+  color: #d97950;
+}
+
+.primary-button:hover {
+  box-shadow: 0 10px 25px rgba(241, 154, 114, 0.35);
+}
+
+.secondary-button:hover {
+  background: #ffe9df;
+}
+
+.primary-button:active,
+.secondary-button:active {
+  transform: scale(0.98);
+}
+
+/* Desktop */
+
 @media (min-width: 768px) {
-  .welcome {
+  .welcome,
+  .auth-page {
     padding: 48px;
+  }
+
+  .auth-card {
+    padding: 48px 40px;
   }
 }
